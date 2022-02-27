@@ -1,0 +1,721 @@
+{
+	"info": {
+		"_postman_id": "895f5935-cfef-4464-bdc2-c785739fb42e",
+		"name": "videoStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USUARIOS: Traer todos los usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Escribir texto en crudo desde Postman",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clave\" : \"valor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Registrar un usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"name\":\"Paco\",\r\n            \"surname\":\"Cojnes\",\r\n            \"age\":32,\r\n            \"email\": \"pacocojnes@gmail.com\",\r\n            \"nickname\":\"pacoj\",\r\n            \"password\":\"1234\",\r\n            \"rol\":\"client\"\r\n        }\r\n        ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Hacer login usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"falso@gmail.com\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Traer perfil buscandolo por email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoyMDQsIm5hbWUiOiJKYXZpIiwic3VybmFtZSI6Ik1vbmxlw7NuIiwiYWdlIjozMiwiZW1haWwiOiJmYWxzb0BnbWFpbC5jb20iLCJuaWNrbmFtZSI6Imptb25sb29wIiwicGFzc3dvcmQiOiIkMmIkMTAkTEpWU2ZqOTZteXU1UXY2Q2VlWlRzLjloZmJudlZyZ0VRbVRwVmdxZjZ1V1hveVFIY05CejIiLCJyb2wiOiJhZG1pbiIsImNyZWF0ZWRBdCI6IjIwMjItMDItMjNUMjM6MjQ6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMjNUMjM6MjQ6MTIuMDAwWiJ9LCJpYXQiOjE2NDU2NjAwNTIsImV4cCI6MTY0NTc0NjQ1Mn0.AnifhPdX4VEwuA3XPB3RgM9C2vzRsgmZYrsQ5ZTp27Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios/email/falso@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"email",
+						"falso@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Traer un usuario por nickname",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"nombre\":\"Javi\",\r\n            \"apellido1\":\"Monleón\",\r\n            \"apellido2\":\"López\",\r\n            \"edad\":32,\r\n            \"email\": \"falso@gmail.com\",\r\n            \"nickname\":\"jmonloop\",\r\n            \"password\":\"1234\"\r\n        }\r\n        ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/profile/jotamann",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"profile",
+						"jotamann"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Borrar Todos los Usuarios",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\" : 204}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Borrar Usuario por ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoyMDQsIm5hbWUiOiJKYXZpIiwic3VybmFtZSI6Ik1vbmxlw7NuIiwiYWdlIjozMiwiZW1haWwiOiJmYWxzb0BnbWFpbC5jb20iLCJuaWNrbmFtZSI6Imptb25sb29wIiwicGFzc3dvcmQiOiIkMmIkMTAkTEpWU2ZqOTZteXU1UXY2Q2VlWlRzLjloZmJudlZyZ0VRbVRwVmdxZjZ1V1hveVFIY05CejIiLCJyb2wiOiJhZG1pbiIsImNyZWF0ZWRBdCI6IjIwMjItMDItMjNUMjM6MjQ6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDItMjNUMjM6MjQ6MTIuMDAwWiJ9LCJpYXQiOjE2NDU2OTE1NzQsImV4cCI6MTY0NTc3Nzk3NH0.uduLGddSlvcBIS3x9dYM9qFlOdewJWv4R_1-MEuZDOE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Luigi\",\r\n    \"apellido1\":\"Minardi\",\r\n    \"apellido2\":\"Siman\",\r\n    \"edad\":19,\r\n    \"email\": \"luigi@hotmail.com\",\r\n    \"nickname\":\"LMS\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/255",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"255"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: Modificar datos usuario por ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Luigi\",\r\n    \"apellido1\":\"Minardi\",\r\n    \"apellido2\":\"Siman\",\r\n    \"edad\":19,\r\n    \"email\": \"luigi@hotmail.com\",\r\n    \"nickname\":\"LMS\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/profile/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: cambiar password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"255\",\r\n    \"oldPassword\": \"1234\",\r\n    \"newPassword\": \"4321\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/newpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"newpassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIOS: buscar en BBDD por termino",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"id\": 256,\r\n            \"peliculaId\": 60599,\r\n            \"usuarioId\": 206,\r\n            \"precio\": 3,\r\n            \"fechaSalida\": \"2022-02-26\",\r\n            \"fechaDevolucion\": \"2022-03-10\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/custom/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"custom",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: clonar 500 peliculas de TMDB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/peliculas/toprated",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas",
+						"toprated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: registrar nueva pelicula en BBDD",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"El silencio de los corderos\",\r\n    \"synopsis\": \"Un tío muy carismático que come personas\",\r\n    \"adult\" : true,\r\n    \"popularity\": 7.3,\r\n    \"image\": \"stringIMAGE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/peliculas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: borrar todas las peliculas de la BBDD",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/peliculas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: buscar en TMDB por titulo usando query",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"El silencio de los corderos\",\r\n    \"synopsis\": \"Un tío muy carismático que come personas\",\r\n    \"adult\" : true,\r\n    \"popularity\": 7.3,\r\n    \"image\": \"stringIMAGE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/peliculas/titulo?criterio=fast",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas",
+						"titulo"
+					],
+					"query": [
+						{
+							"key": "criterio",
+							"value": "fast"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: mostrar TopRated TMDB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/peliculas/toprated",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas",
+						"toprated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: cantidad total de peliculas en la BBDD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/peliculas/cantidad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas",
+						"cantidad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: buscar termino en mi BBDD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/peliculas/custom?termino=top",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas",
+						"custom"
+					],
+					"query": [
+						{
+							"key": "termino",
+							"value": "top"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PELICULAS: traer pelicula TMDB por su id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/peliculas/279",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"peliculas",
+						"279"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PEDIDOS: Crear pedido (Admin)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\r\n            \"id\": 256,\r\n            \"peliculaId\": 60599,\r\n            \"usuarioId\": 206,\r\n            \"precio\": 3,\r\n            \"fechaSalida\": \"2022-02-26\",\r\n            \"fechaDevolucion\": \"2022-03-10\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PEDIDOS: Crear pedido por query",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos/query?peliculaId=60599&usuarioId=206&precio=4&fechaSalida=2022-03-01&fechaDevolucion=2022-03-15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"query"
+					],
+					"query": [
+						{
+							"key": "peliculaId",
+							"value": "60599"
+						},
+						{
+							"key": "usuarioId",
+							"value": "206"
+						},
+						{
+							"key": "precio",
+							"value": "4"
+						},
+						{
+							"key": "fechaSalida",
+							"value": "2022-03-01"
+						},
+						{
+							"key": "fechaDevolucion",
+							"value": "2022-03-15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PEDIDOS: Informe por usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos/caria",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"caria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PEDIDOS: Informe Completo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PEDIDOS: Borrar por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
