@@ -1,459 +1,462 @@
 'use strict';
+//Importo bcrypt y authConfig para hashear los password del seeder
+const bcrypt = require('bcrypt');
+const authConfig = require('../config/auth');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Usuarios', [ //Tener en cuenta que es el nombre de la clase del modelo pero EN PLURAL
-      {
-        "name": "Caria",
-        "surname": "Sharma",
-        "age": 42,
-        "email": "csharma0@cbslocal.com",
-        "nickname": "csharma0",
-        "password": "F6F512",
-        "createdAt": "2021-07-06 09:23:08",
-        "updatedAt": "2021-10-02 09:22:58"
-      }, {
-        "name": "Ginger",
-        "surname": "Sworn",
-        "age": 66,
-        "email": "gsworn1@businessweek.com",
-        "nickname": "gsworn1",
-        "password": "SFo333",
-        "createdAt": "2021-07-03 16:16:11",
-        "updatedAt": "2021-10-10 03:32:46"
-      }, {
-        "name": "Siward",
-        "surname": "Bernholt",
-        "age": 73,
-        "email": "sbernholt2@buzzfeed.com",
-        "nickname": "sbernholt2",
-        "password": "IhQ291",
-        "createdAt": "2021-05-05 11:10:18",
-        "updatedAt": "2021-07-25 21:56:25"
-      }, {
-        "name": "Aguistin",
-        "surname": "Ride",
-        "age": 22,
-        "email": "aride3@etsy.com",
-        "nickname": "aride3",
-        "password": "syS110",
-        "createdAt": "2022-02-03 12:02:03",
-        "updatedAt": "2021-10-01 03:38:00"
-      }, {
-        "name": "Angelo",
-        "surname": "Yea",
-        "age": 54,
-        "email": "ayea4@newsvine.com",
-        "nickname": "ayea4",
-        "password": "CXQ946",
-        "createdAt": "2021-10-21 22:21:13",
-        "updatedAt": "2022-02-06 08:49:54"
-      }, {
-        "name": "Vilhelmina",
-        "surname": "Tother",
-        "age": 64,
-        "email": "vtother5@4shared.com",
-        "nickname": "vtother5",
-        "password": "MNv737",
-        "createdAt": "2021-08-03 14:09:28",
-        "updatedAt": "2022-01-01 15:31:28"
-      }, {
-        "name": "Damaris",
-        "surname": "Griffen",
-        "age": 45,
-        "email": "dgriffen6@mozilla.com",
-        "nickname": "dgriffen6",
-        "password": "ld8810",
-        "createdAt": "2021-11-10 08:24:30",
-        "updatedAt": "2021-06-21 17:58:20"
-      }, {
-        "name": "Pegeen",
-        "surname": "Yokel",
-        "age": 35,
-        "email": "pyokel7@cargocollective.com",
-        "nickname": "pyokel7",
-        "password": "F0N792",
-        "createdAt": "2021-03-25 11:24:48",
-        "updatedAt": "2021-06-04 06:19:48"
-      }, {
-        "name": "Mame",
-        "surname": "Semor",
-        "age": 42,
-        "email": "msemor8@google.cn",
-        "nickname": "msemor8",
-        "password": "0EU551",
-        "createdAt": "2022-01-24 20:35:12",
-        "updatedAt": "2021-09-28 13:10:44"
-      }, {
-        "name": "Charita",
-        "surname": "Beven",
-        "age": 75,
-        "email": "cbeven9@state.tx.us",
-        "nickname": "cbeven9",
-        "password": "CTU049",
-        "createdAt": "2021-08-31 10:06:06",
-        "updatedAt": "2021-05-15 18:54:43"
-      }, {
-        "name": "Meredith",
-        "surname": "Whapple",
-        "age": 72,
-        "email": "mwhapplea@seattletimes.com",
-        "nickname": "mwhapplea",
-        "password": "ODA102",
-        "createdAt": "2022-01-01 22:22:45",
-        "updatedAt": "2021-12-03 13:28:01"
-      }, {
-        "name": "Rey",
-        "surname": "Curnnok",
-        "age": 15,
-        "email": "rcurnnokb@washington.edu",
-        "nickname": "rcurnnokb",
-        "password": "xRu953",
-        "createdAt": "2021-10-26 19:07:00",
-        "updatedAt": "2021-08-20 16:05:46"
-      }, {
-        "name": "Josiah",
-        "surname": "Berrington",
-        "age": 56,
-        "email": "jberringtonc@com.com",
-        "nickname": "jberringtonc",
-        "password": "TpN099",
-        "createdAt": "2021-12-17 23:38:54",
-        "updatedAt": "2021-05-24 10:44:28"
-      }, {
-        "name": "Franky",
-        "surname": "O'Dooghaine",
-        "age": 47,
-        "email": "fodooghained@state.gov",
-        "nickname": "fodooghained",
-        "password": "mU1309",
-        "createdAt": "2021-10-06 06:03:00",
-        "updatedAt": "2021-12-02 02:53:15"
-      }, {
-        "name": "Sallie",
-        "surname": "Widmore",
-        "age": 20,
-        "email": "swidmoree@dropbox.com",
-        "nickname": "swidmoree",
-        "password": "nx2391",
-        "createdAt": "2021-11-16 12:32:48",
-        "updatedAt": "2021-03-17 19:12:13"
-      }, {
-        "name": "Darrelle",
-        "surname": "Synke",
-        "age": 30,
-        "email": "dsynkef@zimbio.com",
-        "nickname": "dsynkef",
-        "password": "X6C328",
-        "createdAt": "2021-10-07 18:44:31",
-        "updatedAt": "2022-01-30 03:26:22"
-      }, {
-        "name": "Alikee",
-        "surname": "Lapenna",
-        "age": 43,
-        "email": "alapennag@google.co.jp",
-        "nickname": "alapennag",
-        "password": "dmM479",
-        "createdAt": "2021-05-27 19:44:48",
-        "updatedAt": "2021-04-03 19:43:59"
-      }, {
-        "name": "Crysta",
-        "surname": "Cicconetti",
-        "age": 42,
-        "email": "ccicconettih@ox.ac.uk",
-        "nickname": "ccicconettih",
-        "password": "dwS064",
-        "createdAt": "2021-07-03 17:23:52",
-        "updatedAt": "2021-08-29 21:54:02"
-      }, {
-        "name": "Ring",
-        "surname": "Slatford",
-        "age": 23,
-        "email": "rslatfordi@themeforest.net",
-        "nickname": "rslatfordi",
-        "password": "3g6430",
-        "createdAt": "2022-02-14 05:29:19",
-        "updatedAt": "2021-05-24 08:25:55"
-      }, {
-        "name": "Tailor",
-        "surname": "Wildey",
-        "age": 29,
-        "email": "twildeyj@last.fm",
-        "nickname": "twildeyj",
-        "password": "l2A586",
-        "createdAt": "2021-04-10 06:08:33",
-        "updatedAt": "2022-01-03 20:22:24"
-      }, {
-        "name": "Caresse",
-        "surname": "Lynam",
-        "age": 51,
-        "email": "clynamk@vinaora.com",
-        "nickname": "clynamk",
-        "password": "8d1159",
-        "createdAt": "2021-08-18 07:15:33",
-        "updatedAt": "2022-02-11 06:43:17"
-      }, {
-        "name": "Dorree",
-        "surname": "Lanfear",
-        "age": 71,
-        "email": "dlanfearl@statcounter.com",
-        "nickname": "dlanfearl",
-        "password": "rSz471",
-        "createdAt": "2021-09-21 15:35:35",
-        "updatedAt": "2021-10-21 07:02:43"
-      }, {
-        "name": "Lombard",
-        "surname": "Olyff",
-        "age": 18,
-        "email": "lolyffm@statcounter.com",
-        "nickname": "lolyffm",
-        "password": "2Hb064",
-        "createdAt": "2021-03-19 22:21:59",
-        "updatedAt": "2022-01-12 23:32:32"
-      }, {
-        "name": "Guillemette",
-        "surname": "Archbold",
-        "age": 61,
-        "email": "garchboldn@yahoo.co.jp",
-        "nickname": "garchboldn",
-        "password": "NgJ417",
-        "createdAt": "2021-09-05 13:28:01",
-        "updatedAt": "2021-03-31 09:17:40"
-      }, {
-        "name": "Darcy",
-        "surname": "Averall",
-        "age": 54,
-        "email": "daverallo@drupal.org",
-        "nickname": "daverallo",
-        "password": "IlP601",
-        "createdAt": "2021-03-22 16:07:28",
-        "updatedAt": "2022-01-31 14:14:03"
-      }, {
-        "name": "Bealle",
-        "surname": "Trood",
-        "age": 72,
-        "email": "btroodp@weather.com",
-        "nickname": "btroodp",
-        "password": "EXx898",
-        "createdAt": "2021-06-20 12:56:43",
-        "updatedAt": "2022-01-08 14:50:34"
-      }, {
-        "name": "Goober",
-        "surname": "Sanday",
-        "age": 56,
-        "email": "gsandayq@tripadvisor.com",
-        "nickname": "gsandayq",
-        "password": "7Ch053",
-        "createdAt": "2021-08-25 12:42:11",
-        "updatedAt": "2021-02-23 15:12:24"
-      }, {
-        "name": "Hilliary",
-        "surname": "McCaughey",
-        "age": 54,
-        "email": "hmccaugheyr@delicious.com",
-        "nickname": "hmccaugheyr",
-        "password": "fgo112",
-        "createdAt": "2021-04-18 18:02:55",
-        "updatedAt": "2021-10-13 18:52:31"
-      }, {
-        "name": "Hubert",
-        "surname": "Morter",
-        "age": 35,
-        "email": "hmorters@springer.com",
-        "nickname": "hmorters",
-        "password": "23K033",
-        "createdAt": "2021-06-11 08:16:17",
-        "updatedAt": "2021-07-23 04:33:42"
-      }, {
-        "name": "Lilas",
-        "surname": "Rabbe",
-        "age": 70,
-        "email": "lrabbet@google.fr",
-        "nickname": "lrabbet",
-        "password": "XQa290",
-        "createdAt": "2022-01-26 00:24:32",
-        "updatedAt": "2021-09-22 04:30:44"
-      }, {
-        "name": "Drusie",
-        "surname": "Newnham",
-        "age": 30,
-        "email": "dnewnhamu@umich.edu",
-        "nickname": "dnewnhamu",
-        "password": "Ead409",
-        "createdAt": "2021-04-24 08:57:19",
-        "updatedAt": "2022-02-11 04:39:26"
-      }, {
-        "name": "Dee dee",
-        "surname": "Napolione",
-        "age": 75,
-        "email": "dnapolionev@seattletimes.com",
-        "nickname": "dnapolionev",
-        "password": "hLQ180",
-        "createdAt": "2021-11-28 20:31:08",
-        "updatedAt": "2021-07-14 12:47:12"
-      }, {
-        "name": "Junie",
-        "surname": "Akers",
-        "age": 73,
-        "email": "jakersw@tamu.edu",
-        "nickname": "jakersw",
-        "password": "ClJ639",
-        "createdAt": "2021-08-15 13:50:47",
-        "updatedAt": "2021-03-25 19:42:59"
-      }, {
-        "name": "Lucas",
-        "surname": "Mussilli",
-        "age": 62,
-        "email": "lmussillix@linkedin.com",
-        "nickname": "lmussillix",
-        "password": "5eR365",
-        "createdAt": "2021-04-21 07:40:11",
-        "updatedAt": "2021-03-17 05:10:25"
-      }, {
-        "name": "Lindon",
-        "surname": "Kite",
-        "age": 51,
-        "email": "lkitey@trellian.com",
-        "nickname": "lkitey",
-        "password": "iLJ873",
-        "createdAt": "2021-07-25 05:12:37",
-        "updatedAt": "2021-03-01 00:36:21"
-      }, {
-        "name": "Caprice",
-        "surname": "Greggor",
-        "age": 18,
-        "email": "cgreggorz@timesonline.co.uk",
-        "nickname": "cgreggorz",
-        "password": "1ln280",
-        "createdAt": "2021-09-02 01:30:29",
-        "updatedAt": "2021-10-31 17:27:54"
-      }, {
-        "name": "Cirillo",
-        "surname": "Dunnett",
-        "age": 23,
-        "email": "cdunnett10@archive.org",
-        "nickname": "cdunnett10",
-        "password": "9w3157",
-        "createdAt": "2021-10-12 01:55:28",
-        "updatedAt": "2021-07-01 10:23:41"
-      }, {
-        "name": "Tova",
-        "surname": "Kmicicki",
-        "age": 31,
-        "email": "tkmicicki11@opera.com",
-        "nickname": "tkmicicki11",
-        "password": "6kL978",
-        "createdAt": "2021-11-22 23:41:42",
-        "updatedAt": "2021-07-15 07:40:58"
-      }, {
-        "name": "Robinson",
-        "surname": "O'Flynn",
-        "age": 29,
-        "email": "roflynn12@answers.com",
-        "nickname": "roflynn12",
-        "password": "qfV077",
-        "createdAt": "2021-06-08 05:24:36",
-        "updatedAt": "2021-11-21 21:14:21"
-      }, {
-        "name": "Wynnie",
-        "surname": "Reiglar",
-        "age": 45,
-        "email": "wreiglar13@google.com.br",
-        "nickname": "wreiglar13",
-        "password": "Q3O862",
-        "createdAt": "2021-05-20 20:22:04",
-        "updatedAt": "2021-10-13 02:04:13"
-      }, {
-        "name": "Sally",
-        "surname": "Hemphill",
-        "age": 27,
-        "email": "shemphill14@cdc.gov",
-        "nickname": "shemphill14",
-        "password": "W8n131",
-        "createdAt": "2021-08-12 16:24:32",
-        "updatedAt": "2021-05-09 16:35:03"
-      }, {
-        "name": "Carlynne",
-        "surname": "Childers",
-        "age": 64,
-        "email": "cchilders15@paginegialle.it",
-        "nickname": "cchilders15",
-        "password": "J4o432",
-        "createdAt": "2021-03-18 12:23:18",
-        "updatedAt": "2021-09-25 10:33:43"
-      }, {
-        "name": "Kev",
-        "surname": "Klinck",
-        "age": 36,
-        "email": "kklinck16@oaic.gov.au",
-        "nickname": "kklinck16",
-        "password": "XWR983",
-        "createdAt": "2021-08-05 09:07:21",
-        "updatedAt": "2022-01-09 07:18:45"
-      }, {
-        "name": "Rasla",
-        "surname": "Aynscombe",
-        "age": 37,
-        "email": "raynscombe17@wordpress.org",
-        "nickname": "raynscombe17",
-        "password": "a95341",
-        "createdAt": "2021-08-15 21:09:38",
-        "updatedAt": "2021-03-17 03:51:05"
-      }, {
-        "name": "Gustav",
-        "surname": "Novakovic",
-        "age": 48,
-        "email": "gnovakovic18@constantcontact.com",
-        "nickname": "gnovakovic18",
-        "password": "Kr8254",
-        "createdAt": "2021-06-12 21:25:00",
-        "updatedAt": "2021-04-01 14:08:36"
-      }, {
-        "name": "Lew",
-        "surname": "Benedetti",
-        "age": 76,
-        "email": "lbenedetti19@blogs.com",
-        "nickname": "lbenedetti19",
-        "password": "nYK247",
-        "createdAt": "2021-11-29 20:09:27",
-        "updatedAt": "2021-05-08 09:37:49"
-      }, {
-        "name": "Lory",
-        "surname": "Roll",
-        "age": 49,
-        "email": "lroll1a@ameblo.jp",
-        "nickname": "lroll1a",
-        "password": "1lR561",
-        "createdAt": "2021-03-18 04:23:17",
-        "updatedAt": "2021-12-31 12:14:44"
-      }, {
-        "name": "Toddy",
-        "surname": "Schmuhl",
-        "age": 30,
-        "email": "tschmuhl1b@istockphoto.com",
-        "nickname": "tschmuhl1b",
-        "password": "2Dq535",
-        "createdAt": "2021-02-25 17:16:15",
-        "updatedAt": "2021-03-13 15:00:52"
-      }, {
-        "name": "Heindrick",
-        "surname": "Spink",
-        "age": 30,
-        "email": "hspink1c@mysql.com",
-        "nickname": "hspink1c",
-        "password": "Mwq316",
-        "createdAt": "2021-10-10 13:32:05",
-        "updatedAt": "2021-03-06 22:23:06"
-      }, {
-        "name": "Debor",
-        "surname": "Giacomuzzo",
-        "age": 54,
-        "email": "dgiacomuzzo1d@hc360.com",
-        "nickname": "dgiacomuzzo1d",
-        "password": "gza649",
-        "createdAt": "2021-04-19 09:06:46",
-        "updatedAt": "2021-05-31 23:05:43"
-      }
+    {
+      "name": "Noelyn",
+      "surname": "Pinnijar",
+      "age": 35,
+      "email": "npinnijar0@goodreads.com",
+      "nickname": "npinnijar0",
+      "password":bcrypt.hashSync("1234", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-06-15 02:44:52",
+      "updatedAt": "2021-09-03 04:13:26"
+    }, {
+      "name": "Adrian",
+      "surname": "Lazenbury",
+      "age": 52,
+      "email": "alazenbury1@wufoo.com",
+      "nickname": "alazenbury1",
+      "password":bcrypt.hashSync("2543", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-10-22 05:57:26",
+      "updatedAt": "2021-06-09 23:35:27"
+    }, {
+      "name": "Luz",
+      "surname": "Hadrill",
+      "age": 75,
+      "email": "lhadrill2@examiner.com",
+      "nickname": "lhadrill2",
+      "password":bcrypt.hashSync("dsfsdf", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-05-11 11:07:01",
+      "updatedAt": "2021-08-14 20:38:42"
+    }, {
+      "name": "Aveline",
+      "surname": "Devanney",
+      "age": 10,
+      "email": "adevanney3@toplist.cz",
+      "nickname": "adevanney3",
+      "password":bcrypt.hashSync("12sdasd34", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-05-23 23:28:53",
+      "updatedAt": "2022-01-07 15:07:55"
+    }, {
+      "name": "Therese",
+      "surname": "Brownsworth",
+      "age": 15,
+      "email": "tbrownsworth4@sina.com.cn",
+      "nickname": "tbrownsworth4",
+      "password":bcrypt.hashSync("sadasd", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-01-08 20:55:47",
+      "updatedAt": "2021-11-13 22:26:26"
+    }, {
+      "name": "Cirilo",
+      "surname": "Bains",
+      "age": 17,
+      "email": "cbains5@census.gov",
+      "nickname": "cbains5",
+      "password":bcrypt.hashSync("4rfg54", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-06-13 01:09:39",
+      "updatedAt": "2021-06-17 05:26:27"
+    }, {
+      "name": "Miriam",
+      "surname": "Stanyforth",
+      "age": 26,
+      "email": "mstanyforth6@clickbank.net",
+      "nickname": "mstanyforth6",
+      "password":bcrypt.hashSync("fsf32", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-02-02 13:05:49",
+      "updatedAt": "2022-02-14 11:55:57"
+    }, {
+      "name": "Arlie",
+      "surname": "Siuda",
+      "age": 27,
+      "email": "asiuda7@twitpic.com",
+      "nickname": "asiuda7",
+      "password":bcrypt.hashSync("asd324", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-01-16 22:59:43",
+      "updatedAt": "2021-05-26 13:10:14"
+    }, {
+      "name": "Querida",
+      "surname": "Murrock",
+      "age": 69,
+      "email": "qmurrock8@ftc.gov",
+      "nickname": "qmurrock8",
+      "password":bcrypt.hashSync("2d121", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-01-05 02:17:56",
+      "updatedAt": "2021-10-13 20:39:48"
+    }, {
+      "name": "Catlee",
+      "surname": "Eberle",
+      "age": 70,
+      "email": "ceberle9@desdev.cn",
+      "nickname": "ceberle9",
+      "password":bcrypt.hashSync("we1dd", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-08-06 18:24:55",
+      "updatedAt": "2021-06-08 04:08:18"
+    }, {
+      "name": "Byran",
+      "surname": "Collyer",
+      "age": 74,
+      "email": "bcollyera@domainmarket.com",
+      "nickname": "bcollyera",
+      "password":bcrypt.hashSync("1d2dd21", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-11-06 02:59:38",
+      "updatedAt": "2021-06-04 21:05:46"
+    }, {
+      "name": "Ives",
+      "surname": "Neesam",
+      "age": 25,
+      "email": "ineesamb@usa.gov",
+      "nickname": "ineesamb",
+      "password":bcrypt.hashSync("1ccc234", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-02-03 02:03:12",
+      "updatedAt": "2021-06-12 03:50:22"
+    }, {
+      "name": "Correy",
+      "surname": "Snibson",
+      "age": 21,
+      "email": "csnibsonc@addthis.com",
+      "nickname": "csnibsonc",
+      "password":bcrypt.hashSync("dww11", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-06-21 06:19:53",
+      "updatedAt": "2021-06-06 07:27:58"
+    }, {
+      "name": "Lyle",
+      "surname": "Trench",
+      "age": 48,
+      "email": "ltrenchd@tmall.com",
+      "nickname": "ltrenchd",
+      "password":bcrypt.hashSync("asdsqq", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-11-13 08:26:58",
+      "updatedAt": "2021-09-17 17:58:43"
+    }, {
+      "name": "Felix",
+      "surname": "Siemianowicz",
+      "age": 76,
+      "email": "fsiemianowicze@patch.com",
+      "nickname": "fsiemianowicze",
+      "password":bcrypt.hashSync("d11dc", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-02-19 00:54:36",
+      "updatedAt": "2021-04-15 18:43:57"
+    }, {
+      "name": "Sherlocke",
+      "surname": "Vinau",
+      "age": 34,
+      "email": "svinauf@unicef.org",
+      "nickname": "svinauf",
+      "password":bcrypt.hashSync("asdjd", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-02-09 07:18:52",
+      "updatedAt": "2021-08-15 07:31:19"
+    }, {
+      "name": "Ashlin",
+      "surname": "Jira",
+      "age": 34,
+      "email": "ajirag@ebay.com",
+      "nickname": "ajirag",
+      "password":bcrypt.hashSync("ccsqq", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-09-26 01:50:31",
+      "updatedAt": "2021-10-04 00:25:48"
+    }, {
+      "name": "Noam",
+      "surname": "Skeffington",
+      "age": 25,
+      "email": "nskeffingtonh@businessinsider.com",
+      "nickname": "nskeffingtonh",
+      "password":bcrypt.hashSync("sdq112", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-24 01:01:44",
+      "updatedAt": "2021-12-24 15:07:02"
+    }, {
+      "name": "Ashien",
+      "surname": "Ranscomb",
+      "age": 13,
+      "email": "aranscombi@nifty.com",
+      "nickname": "aranscombi",
+      "password":bcrypt.hashSync("ss11cc", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-11-18 03:22:38",
+      "updatedAt": "2021-04-16 18:58:26"
+    }, {
+      "name": "Ezequiel",
+      "surname": "Breckell",
+      "age": 22,
+      "email": "ebreckellj@oracle.com",
+      "nickname": "ebreckellj",
+      "password":bcrypt.hashSync("s1cv1v", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-04-20 19:01:06",
+      "updatedAt": "2021-10-01 01:51:43"
+    }, {
+      "name": "Buck",
+      "surname": "Petkovic",
+      "age": 80,
+      "email": "bpetkovick@github.com",
+      "nickname": "bpetkovick",
+      "password":bcrypt.hashSync("s.sad", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-23 17:03:29",
+      "updatedAt": "2022-02-19 19:39:34"
+    }, {
+      "name": "Olly",
+      "surname": "Catherine",
+      "age": 38,
+      "email": "ocatherinel@sbwire.com",
+      "nickname": "ocatherinel",
+      "password":bcrypt.hashSync("sc1234", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-01-16 05:44:03",
+      "updatedAt": "2021-02-27 13:54:04"
+    }, {
+      "name": "Hamil",
+      "surname": "Adanez",
+      "age": 45,
+      "email": "hadanezm@sina.com.cn",
+      "nickname": "hadanezm",
+      "password":bcrypt.hashSync("sd1123", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-27 19:05:19",
+      "updatedAt": "2021-12-02 03:08:19"
+    }, {
+      "name": "Ericha",
+      "surname": "Shalliker",
+      "age": 23,
+      "email": "eshallikern@ebay.co.uk",
+      "nickname": "eshallikern",
+      "password":bcrypt.hashSync("asd11xc", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-10-16 23:50:40",
+      "updatedAt": "2021-08-24 17:06:06"
+    }, {
+      "name": "Sunny",
+      "surname": "Roloff",
+      "age": 71,
+      "email": "sroloffo@shop-pro.jp",
+      "nickname": "sroloffo",
+      "password":bcrypt.hashSync("sd sqq", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-18 11:16:28",
+      "updatedAt": "2021-09-08 14:33:37"
+    }, {
+      "name": "West",
+      "surname": "Fendt",
+      "age": 19,
+      "email": "wfendtp@unesco.org",
+      "nickname": "wfendtp",
+      "password":bcrypt.hashSync("asdds1", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-12-18 17:17:05",
+      "updatedAt": "2021-12-21 15:31:59"
+    }, {
+      "name": "Evvie",
+      "surname": "Leat",
+      "age": 43,
+      "email": "eleatq@slideshare.net",
+      "nickname": "eleatq",
+      "password":bcrypt.hashSync("sd1cf", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-02-18 20:12:30",
+      "updatedAt": "2021-11-11 12:51:28"
+    }, {
+      "name": "Birdie",
+      "surname": "Mildner",
+      "age": 60,
+      "email": "bmildnerr@ft.com",
+      "nickname": "bmildnerr",
+      "password":bcrypt.hashSync("sdd1r", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-12-26 08:46:19",
+      "updatedAt": "2021-11-09 02:29:40"
+    }, {
+      "name": "Audie",
+      "surname": "Riping",
+      "age": 73,
+      "email": "aripings@yale.edu",
+      "nickname": "aripings",
+      "password":bcrypt.hashSync("12d3sdsa4", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-12-08 21:32:35",
+      "updatedAt": "2021-12-03 04:05:26"
+    }, {
+      "name": "Cristy",
+      "surname": "Scammonden",
+      "age": 42,
+      "email": "cscammondent@topsy.com",
+      "nickname": "cscammondent",
+      "password":bcrypt.hashSync("sad123", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-04-15 10:25:41",
+      "updatedAt": "2021-08-08 17:53:51"
+    }, {
+      "name": "Nanice",
+      "surname": "Lambrick",
+      "age": 69,
+      "email": "nlambricku@barnesandnoble.com",
+      "nickname": "nlambricku",
+      "password":bcrypt.hashSync("sdsaaw", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-11-06 12:21:13",
+      "updatedAt": "2021-03-15 09:22:00"
+    }, {
+      "name": "Marvin",
+      "surname": "Gatrell",
+      "age": 58,
+      "email": "mgatrellv@nymag.com",
+      "nickname": "mgatrellv",
+      "password":bcrypt.hashSync("sd1vv", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-01-10 04:57:50",
+      "updatedAt": "2021-10-11 22:16:02"
+    }, {
+      "name": "Lorant",
+      "surname": "Currum",
+      "age": 38,
+      "email": "lcurrumw@flavors.me",
+      "nickname": "lcurrumw",
+      "password":bcrypt.hashSync("asdaqwe", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-14 08:16:15",
+      "updatedAt": "2021-04-21 13:42:33"
+    }, {
+      "name": "Brendan",
+      "surname": "Fiddy",
+      "age": 40,
+      "email": "bfiddyx@altervista.org",
+      "nickname": "bfiddyx",
+      "password":bcrypt.hashSync("sadaqw", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-12-21 21:03:06",
+      "updatedAt": "2021-07-02 21:17:48"
+    }, {
+      "name": "Kerry",
+      "surname": "Bragger",
+      "age": 32,
+      "email": "kbraggery@photobucket.com",
+      "nickname": "kbraggery",
+      "password":bcrypt.hashSync("asd1h", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-05-30 18:01:22",
+      "updatedAt": "2021-08-31 21:23:58"
+    }, {
+      "name": "Natal",
+      "surname": "Sanz",
+      "age": 57,
+      "email": "nsanzz@about.com",
+      "nickname": "nsanzz",
+      "password":bcrypt.hashSync("7j56h", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-08-11 07:32:27",
+      "updatedAt": "2021-04-11 01:17:37"
+    }, {
+      "name": "Isabella",
+      "surname": "Burnapp",
+      "age": 12,
+      "email": "iburnapp10@myspace.com",
+      "nickname": "iburnapp10",
+      "password":bcrypt.hashSync("sad12e", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-11-04 18:15:09",
+      "updatedAt": "2021-09-04 11:47:55"
+    }, {
+      "name": "Betsey",
+      "surname": "Szymanski",
+      "age": 70,
+      "email": "bszymanski11@360.cn",
+      "nickname": "bszymanski11",
+      "password":bcrypt.hashSync("asdwed", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-04-30 18:12:03",
+      "updatedAt": "2022-01-26 00:03:32"
+    }, {
+      "name": "Georgetta",
+      "surname": "Sturgess",
+      "age": 31,
+      "email": "gsturgess12@ucsd.edu",
+      "nickname": "gsturgess12",
+      "password":bcrypt.hashSync("asd12d", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-02 20:28:58",
+      "updatedAt": "2021-11-02 08:32:51"
+    }, {
+      "name": "Englebert",
+      "surname": "Huetson",
+      "age": 39,
+      "email": "ehuetson13@ca.gov",
+      "nickname": "ehuetson13",
+      "password":bcrypt.hashSync("asdasdqw", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-07-03 20:24:25",
+      "updatedAt": "2021-05-15 20:32:28"
+    }, {
+      "name": "Raul",
+      "surname": "Rickcord",
+      "age": 78,
+      "email": "rrickcord14@bloglovin.com",
+      "nickname": "rrickcord14",
+      "password":bcrypt.hashSync("asdwc", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-02-21 20:58:17",
+      "updatedAt": "2021-12-12 00:39:15"
+    }, {
+      "name": "Darwin",
+      "surname": "Meeson",
+      "age": 75,
+      "email": "dmeeson15@arizona.edu",
+      "nickname": "dmeeson15",
+      "password":bcrypt.hashSync("sad12", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2022-01-25 01:53:18",
+      "updatedAt": "2021-11-04 04:33:44"
+    }, {
+      "name": "Mirabel",
+      "surname": "Iorio",
+      "age": 26,
+      "email": "miorio16@dot.gov",
+      "nickname": "miorio16",
+      "password":bcrypt.hashSync("sad1", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-10-23 21:21:25",
+      "updatedAt": "2021-04-24 09:23:36"
+    }, {
+      "name": "Chicky",
+      "surname": "Bentick",
+      "age": 12,
+      "email": "cbentick17@g.co",
+      "nickname": "cbentick17",
+      "password":bcrypt.hashSync("sadasd", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-03-12 18:17:15",
+      "updatedAt": "2021-05-27 01:44:55"
+    }, {
+      "name": "Muire",
+      "surname": "Legonidec",
+      "age": 36,
+      "email": "mlegonidec18@reuters.com",
+      "nickname": "mlegonidec18",
+      "password":bcrypt.hashSync("asdd", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-09-16 19:37:35",
+      "updatedAt": "2021-09-29 10:06:44"
+    }, {
+      "name": "Corette",
+      "surname": "Cuming",
+      "age": 70,
+      "email": "ccuming19@msu.edu",
+      "nickname": "ccuming19",
+      "password":bcrypt.hashSync("sadbn", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-03-31 19:01:24",
+      "updatedAt": "2021-04-09 00:09:16"
+    }, {
+      "name": "Teirtza",
+      "surname": "Zuanazzi",
+      "age": 50,
+      "email": "tzuanazzi1a@ca.gov",
+      "nickname": "tzuanazzi1a",
+      "password":bcrypt.hashSync("sad11", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-08-08 03:36:14",
+      "updatedAt": "2021-09-24 02:57:40"
+    }, {
+      "name": "Maryrose",
+      "surname": "Strong",
+      "age": 27,
+      "email": "mstrong1b@blogspot.com",
+      "nickname": "mstrong1b",
+      "password":bcrypt.hashSync("sd223", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-06-02 16:59:00",
+      "updatedAt": "2021-04-26 22:13:48"
+    }, {
+      "name": "Celeste",
+      "surname": "Montel",
+      "age": 78,
+      "email": "cmontel1c@ifeng.com",
+      "nickname": "cmontel1c",
+      "password":bcrypt.hashSync("fdjkk", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-11-19 11:10:21",
+      "updatedAt": "2022-02-14 14:06:22"
+    }, {
+      "name": "Shelley",
+      "surname": "Quant",
+      "age": 49,
+      "email": "squant1d@apple.com",
+      "nickname": "squant1d",
+      "password":bcrypt.hashSync("asdsd g", Number.parseInt(authConfig.rounds)),
+      "createdAt": "2021-08-09 21:18:32",
+      "updatedAt": "2021-04-08 02:21:13"
+    }
   ], {});
   },
 

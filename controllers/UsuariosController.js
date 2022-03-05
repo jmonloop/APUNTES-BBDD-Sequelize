@@ -323,7 +323,7 @@ UsuariosController.buscaTermino = async (req, res) => {
 
     //declaro el string que forma la consulta de SQL
     let consulta = 
-    `SELECT * FROM videoclub.usuarios
+    `SELECT * FROM usuarios
     WHERE name LIKE '%${termino}%'
     OR surname LIKE '%${termino}%'
     OR age LIKE '%${termino}%'

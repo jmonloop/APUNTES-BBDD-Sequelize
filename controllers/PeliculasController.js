@@ -162,7 +162,7 @@ class PeliculaClass {
 
         //declaro el string que forma la consulta de SQL
         let consulta = 
-            `SELECT * FROM videoclub.peliculas
+            `SELECT * FROM peliculas
             WHERE title LIKE '%${termino}%'
             OR synopsis LIKE '%${termino}%'`;
 

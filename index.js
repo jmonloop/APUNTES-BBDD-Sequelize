@@ -10,8 +10,9 @@ const axios = require('axios');
 const db = require('./db.js');
 //Importo el fichero router.js en router (habrá que crearlo)(siempre igual)
 const router = require('./router.js');
-//declaro el número de puerto donde levantaremos el servidor (suele ser 3000 pero da igual)(siempre igual)
-const PORT = 3000;
+//declaro el número de puerto donde levantaremos el servidor
+//Le digo que lo coja como variable de entorno (para Heroku) o una constante que suele ser 5000 pero da igual el número en verdad)(siempre igual)
+const PORT = process.env.PORT || 5000;
 
 
 //Configuro las opciones para que CORS no bloquee los puertos. (siempre igual)
