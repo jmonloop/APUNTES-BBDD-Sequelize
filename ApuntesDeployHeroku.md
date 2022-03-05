@@ -1,28 +1,41 @@
 HEROKU
-1 New
-2 Dar nombre a la app
+
+1 Hacer login en Heroku y en el panel principal, a la derecha le damos a New
+
+2 Dar nombre a la app sin mayúsculas ni espacios
+
 3 Elegir región (europa pero da igual)
+
 4 Vincular con Github, buscar el repo y darle a Connect
-5 Elegir la rama y darle a EnableAutomaticDeploys para que actualice el deploy automáticamente
-6  Darle a deploy
+
+5 Elegir la rama de deployeo automático y darle a EnableAutomaticDeploys para que actualice el deploy automáticamente
+
+6  Elegir la rama de deployeo manual por si queremos hacerlo manualmente dándole a DeployBranch
+
 7 Podemos ver logs a tiempo real en More + View Logs
+
 8 Añadir Base de datos para MySQL:
+
 	Resources + Addons + buscamos  ClearDB MySQL
 		Elegimos la versión Ignite (la gratis)
+		(si es la primera vez nos pedirá confirmar metiendo nuestra tarjeta de crédito pero es gratis)
 9 Settings
+
 10 Reveal Config Vars
+
 11 Copiamos la cadena de conexión
 	Ejemplo: 
 ```
 'mysql://b0600ea495asds:9cd2b111@us-cdbr-hirone-west-06.cleardb.net/heroku_4a1dc3673c4114d?reconnect=true'
 ```
-	Desglosamos las variables. Siguiendo el ejemplo
+	Desglosamos las variables. (Siguiendo el ejemplo:)
 		USER NAME = b0600ea495asds
 		PASSWORD = 9cd2b111
 		HOST = us-cdbr-hirone-west- 06.cleardb.net
 		DATABASE NAME = heroku_4a1dc3673c4114d
 		
 12 Creamos una nueva conexión en MySQL metiendo en cada campo las variables desglosadas de la cadena de conexión:
+
 	Connection Name --> el nombre que queramos
 	Hostname --> HOST
 	Port --> el que viene por defecto (3306)
@@ -30,9 +43,9 @@ HEROKU
 	Password + StoreInVault.. --> PASSWORD
 	Defautl Schema --> DATABASE NAME
 	
-13 Vamos a nuestro proyecto backend y en el  fichero .env añadimos variables de entorno ya que heroku usa algunas como NODE_ENV para elegir el entorno para deployear (qué rama elije del config.json)
+13 Vamos a nuestro proyecto backend y en el  fichero .env añadimos variables de entorno ya que heroku usa algunas como NODE_ENV para elegir el entorno para deployear (qué entorno elige del config.json)
 
-	13.1 Para los parámetros de la nueva BBDD remota (con las variables desglosadas)
+	13.1 ENVs para enlazar con la nueva BBDD remota (mediante las variables desglosadas)
 ```
 #config/config.js
 DB_USERNAME="b0600ea495asds"
@@ -40,12 +53,12 @@ DB_PASSWORD="9cd2b111"
 DB_DATABASE="heroku_4a1dc3673c4114d"
 DB_HOST="us-cdbr-hirone-west- 06.cleardb.net"
 ```
-	13.2 Para el puerto en local cuando queramos trabajar en local:
+	13.2 ENVs para asignar el puerto en local cuando queramos trabajar en local:
 ```
 #db.js
 DB_PORT="3306"
 ```
-	13.3 Para seleccionar la rama del config.js (development, test o production):
+	13.3 ENVs para seleccionar el entorno del config.js (development, test o production):
 ```
 #models/index.js
 NODE_ENV="production"
@@ -75,6 +88,7 @@ module.exports = {
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
+  //Este será el entorno con el que trabajará Heroku
   "production": {
     "username": process.env.DB_USERNAME,
     "password": process.env.DB_PASSWORD,
@@ -87,7 +101,8 @@ module.exports = {
 Como la variable de entorno NODE_ENV le hemos dado valor "production", Heroku siempre deployeará siguiendo lo que haya en la rama "production". En development asignamos en paralelo constantes en vez de .env para que puedan trabajar en local cuando se bajen nuestro repo.
 
 16 En Heroku + Settings + Reveal Config Vars
-	Introducimos manualmente clave y valor de todas las variables declaradas en nuestro fichero .env
+
+	Introducimos manualmente clave y valor de todas las variables declaradas en nuestro fichero .env (paso 13)
 
 17 En el package.json, añadimos el script
 "start": "node index.js"
@@ -101,23 +116,61 @@ const PORT = 5000;
 ```
 const PORT = process.env.PORT || 5000;
 ```
-	De esta forma Heroku podrá asignar su propio puerto para deployar la app. OJO esta env no se debe meter manualmente en la web de Heroku ya que es una que asigna él automáticamente.
+	De esta forma Heroku podrá asignar su propio puerto para deployar la app. 
+	OJO! esta env no se debe meter manualmente en la web de Heroku ya que es una que asigna él automáticamente.
 
-16 Creo fichero en root Procfile y dentro:
+16 En root, creo fichero Procfile y dentro pego:
+
 	web: node index.js
 	
 17 Para saber la dirección raíz de los endpoint, 
 	en Heroku, elegimos la app + settings y abajo del todo en
+
 	Your app can be found at 
-	copiamos la url
+
+copiamos la url
+
+18 OPCIONAL
+
+Si en nuestro proyecto hacemos alguna llamada a nombre de la BBDD (por ejemplo usando algún raw query) hay que tener en cuenta que al deployear cambiará el nombre de la BBDD (ahora apuntará a la que haya en DB_DATABASE). 
+Si no se sustituye por el nuevo nombre que nos da Heroku, esos endpoints no funcionarán y lo que es peor, Heroku se nos tumbará a partir de esa petición y tendremos que re-arrancarlo.
+
+Ejemplo:
+
+        //declaro el string que forma la consulta de SQL
+        let consulta = 
+            `SELECT * FROM videoclub.peliculas
+            WHERE title LIKE '%${termino}%'
+            OR synopsis LIKE '%${termino}%'`;
+
+En nuestro ejemplo ahora debería ser:
+
+	    //declaro el string que forma la consulta de SQL
+        let consulta = 
+            `SELECT * FROM heroku_4a1dc3673c4114d.peliculas
+            WHERE title LIKE '%${termino}%'
+            OR synopsis LIKE '%${termino}%'`;
+
 
 
 
 
 VER VARIABLES DE ENTORNO QUE USA HEROKU EN NUESTRA APP
-1 heroku login
-2 heroku run printenv -a nombreapp
+Muchos de los fallos que da Heroku tienen que ver con alguna ENV que el deploy necesita y que no tiene. Para ver exactamente cuáles está recibiendo Heroku, en el terminal escribimos:
 
+1º
+
+	heroku login
+
+2º
+
+	heroku run printenv -a nombreapp
+
+
+
+
+
+BLOGS CON INFO DE DEPLOY CON NODEJS Y MYSQL EN HEROKU
 
 https://www.bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/
 

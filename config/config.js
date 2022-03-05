@@ -8,7 +8,7 @@ module.exports = {
     //Uso la variable de entorno y dejo otra para que puedan usarlo en local si se bajan el repo (ya que se lo bajarán sin las variables de entorno)
     "username": process.env.DB_USERNAME || "root",
     "password": process.env.DB_PASSWORD || "1234",
-    "database": process.env.DB_DATABASE || "videoclubesp",
+    "database": process.env.DB_DATABASE || "videoclub",
     "host": process.env.DB_HOST || "127.0.0.1",
     "dialect": "mysql"
   },
