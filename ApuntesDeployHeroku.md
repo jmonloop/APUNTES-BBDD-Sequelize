@@ -100,14 +100,20 @@ module.exports = {
 ```
 Como la variable de entorno NODE_ENV le hemos dado valor "production", Heroku siempre deployeará siguiendo lo que haya en la rama "production". En development asignamos en paralelo constantes en vez de .env para que puedan trabajar en local cuando se bajen nuestro repo.
 
-16 En Heroku + Settings + Reveal Config Vars
+16 Buscar en todo el proyecto la cadena
+
+  "process.env"
+
+Y asegurarnos que todas las variables de entorno que se vayan a usar las tengamos igual que en nuestro fichero env (todas menos process.env.PORT)
+
+17 En Heroku + Settings + Reveal Config Vars
 
 	Introducimos manualmente clave y valor de todas las variables declaradas en nuestro fichero .env (paso 13)
 
-17 En el package.json, añadimos el script
+18 En el package.json, añadimos el script
 "start": "node index.js"
 
-15 En index.js, cambiamos la línea donde se declara el número de puerto para el backend
+19 En index.js, cambiamos la línea donde se declara el número de puerto para el backend
 	de 
 ```
 const PORT = 5000;
@@ -119,18 +125,24 @@ const PORT = process.env.PORT || 5000;
 	De esta forma Heroku podrá asignar su propio puerto para deployar la app. 
 	OJO! esta env no se debe meter manualmente en la web de Heroku ya que es una que asigna él automáticamente.
 
-16 En root, creo fichero Procfile y dentro pego:
+20 En root, creo fichero Procfile y dentro pego:
 
 	web: node index.js
+
+21 Crear y migrar BBDD desde VSC, en terminal
+
+	17.1 sequelize db:create
+
+	17.2 sequelize db:migrate
 	
-17 Para saber la dirección raíz de los endpoint, 
+22 Para saber la dirección raíz de los endpoint, 
 	en Heroku, elegimos la app + settings y abajo del todo en
 
 	Your app can be found at 
 
 copiamos la url
 
-18 OPCIONAL
+23 OPCIONAL
 
 Si en nuestro proyecto hacemos alguna llamada a nombre de la BBDD (por ejemplo usando algún raw query) hay que tener en cuenta que al deployear cambiará el nombre de la BBDD (ahora apuntará a la que haya en DB_DATABASE). 
 Si no se sustituye por el nuevo nombre que nos da Heroku, esos endpoints no funcionarán y lo que es peor, Heroku se nos tumbará a partir de esa petición y tendremos que re-arrancarlo.
